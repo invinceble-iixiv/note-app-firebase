@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {Route, BrowserRouter as Router, Redirect} from 'react-router-dom';
+import LoginComponent from './login/login';
+import SignupComponent from './signup/signup';
 
 import firebase from 'firebase';
 import 'firebase/firestore';
@@ -21,8 +24,20 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
+const routing = (
+ <Router>
+   <div>
+    <Redirect exact from='/' to='/login'></Redirect>
+    <Route path='/login' component={LoginComponent}></Route>
+    <Route path='/signup' component={SignupComponent}></Route>
+    <Route path='/notes' component={App}></Route>
+   </div>
+ </Router>
+)
+
+
 ReactDOM.render(
-    <App />,
+   routing,
   document.getElementById('fire-note-container')
 );
 
